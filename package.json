@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "deploy": "node scripts/gh-pages-deploy.cjs"
+    "deploy": "node scripts/gh-pages-deploy.cjs",
+    "predeploy": "npm run build",
+    "ghdeploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@achrinza/node-ipc": "^10.1.11",
@@ -20,7 +22,8 @@
     "@vue/cli-plugin-router": "^5.0.0",
     "@vue/cli-plugin-vuex": "^5.0.0",
     "@vue/cli-service": "^5.0.8",
-    "execa": "9.5.2"
+    "execa": "9.5.2",
+    "gh-pages": "^6.3.0"
   },
   "browserslist": [
     "> 1%",
