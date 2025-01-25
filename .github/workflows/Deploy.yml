@@ -1,26 +1,29 @@
-name: 'Deploy to GitHub Pages'
+name: Deploy to GitHub Pages
+
 on:
   push:
     branches:
-      - main
+      - main  # Adjust this if your default branch has a different name
+
 jobs:
-  gh-pages-deploy:
-    name: Deploying to Github Pages
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-node@v2
-          with:
-            node-version: '14'
-        - name: Install packages
-          run: npm i
-        - name: Set Creds
-          run: git config user.name "beugenius" && git config user.email "bryce.eugene@outlook.com"
-        - name: Build
-          run: npm run build
-        - name: Deploy
-          uses: peaceiris/actions-gh-pages@v3
-          with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_dir: ./
-            publish_branch: gh-pages
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Use whatever version of Node.js your project requires
+
+    - name: Install and Build
+      run: |
+        npm install
+        npm run build
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
